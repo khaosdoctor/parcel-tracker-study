@@ -1,0 +1,10 @@
+{
+    "app": {
+        "port": 4000
+    },
+    "database": {
+        "host": "localhost",
+        "port": 27017,
+        "database": "parcel-service"
+    }
+}

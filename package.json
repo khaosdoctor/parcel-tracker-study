@@ -1,0 +1,57 @@
+{
+  "name": "interview-project-instabox",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "repository": "https://gitlab.com/instabox/interview-project-instabox",
+  "author": "Tommy Brunn <tommy@instabox.se>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "bcrypt": "^4.0.0",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.0",
+    "express": "^4.17.1",
+    "express-async-router": "^0.1.15",
+    "jest-junit": "^10.0.0",
+    "mongoose": "^5.9.2",
+    "passport": "^0.4.1",
+    "passport-http": "^0.3.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-jest": "^23.8.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2",
+    "uuid": "^7.0.1"
+  },
+  "scripts": {
+    "start": "nodemon",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "eslint .",
+    "format": "eslint . --fix",
+    "package": "./bin/compress",
+    "upload": "./bin/publish"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "coverageDirectory": "test-artifacts/coverage",
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test-artifacts"
+        }
+      ]
+    ]
+  }
+}

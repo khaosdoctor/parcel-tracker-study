@@ -1,0 +1,32 @@
+POST http://localhost:4000/api/sender
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "name": "Test McTestFace",
+  "password": "password"
+}
+
+###
+
+POST http://localhost:4000/api/parcel
+Content-Type: application/json
+Authorization: Basic test@test.com:password
+
+{
+  "address": "Main Street 123", "dimensions": {
+    "height": 10,
+    "width": 20,
+    "depth": 15
+  }
+}
+
+###
+
+GET http://localhost:4000/api/parcel/655d1d58047133f0eb1994f6
+Authorization: Basic test@test.com:password
+
+###
+
+GET http://localhost:4000/api/sender/655d1d58047133f0eb1994f6
+Authorization: Basic test@test.com:password
