@@ -23,10 +23,5 @@ Authorization: Basic test@test.com:password
 
 ###
 
-GET http://localhost:4000/api/parcel/655d1d58047133f0eb1994f6
-Authorization: Basic test@test.com:password
-
-###
-
-GET http://localhost:4000/api/sender/655d1d58047133f0eb1994f6
+GET http://localhost:4000/api/parcel/655d4a00faa56e601d101a54
 Authorization: Basic test@test.com:password

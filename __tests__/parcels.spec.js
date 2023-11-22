@@ -1,7 +1,7 @@
-const { v4: uuid } = require("uuid");
-const request = require("supertest");
-const createApp = require("../src/app");
-const createTestHelpers = require("../testHelpers");
+import { randomUUID as uuid } from "node:crypto"
+import request from "supertest"
+import createApp from "../src/app"
+import createTestHelpers from "../testHelpers"
 
 describe("Parcels", () => {
   let app, dbConnection, randomSender, randomRecipient, randomParcel;
