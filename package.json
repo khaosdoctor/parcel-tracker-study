@@ -7,6 +7,9 @@
   "author": "Tommy Brunn <tommy@instabox.se>",
   "license": "UNLICENSED",
   "private": true,
+  "engines": {
+    "node": ">=20.6.0"
+  },
   "dependencies": {
     "config": "^3.3.9",
     "express": "^4.18.2",
