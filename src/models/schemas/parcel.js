@@ -8,3 +8,4 @@ module.exports = new Schema({
   sender: { type: "ObjectId", ref: "Sender", required: true },
   recipient: { type: "ObjectId", ref: "Recipient", required: true }
 });
+

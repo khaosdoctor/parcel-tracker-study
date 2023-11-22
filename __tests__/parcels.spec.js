@@ -39,32 +39,95 @@ describe("Parcels", () => {
     let email, password, sender;
 
     beforeAll(async () => {
-      email = `email-${uuid()}@test.com`;
-      password = `password-${uuid()}`;
+      email = `email-${uuid()}@test.com`
+      password = `password-${uuid()}`
 
-      sender = await randomSender({ email, password });
-    });
+      sender = await randomSender({ email, password, maxVolume: 100000 })
+    })
 
     afterAll(async () => {
-      await sender.delete();
-    });
+      await sender.delete()
+    })
 
-    test("Authenticated senders can create parcels", async () => {
+    test('Authenticated senders can create parcels', async () => {
       return request(app)
-        .post("/api/parcel")
-        .set("Content-Type", "application/json")
+        .post('/api/parcel')
+        .set('Content-Type', 'application/json')
         .auth(email, password)
         .send({
           dimensions: {
             height: 50,
             width: 25,
-            depth: 10
+            depth: 10,
           },
-          address: "Main Street 123"
+          address: 'Main Street 123',
         })
         .expect(201)
-        .expect("Location", /\/api\/parcel\/[^/]+/);
-    });
+        .expect('Location', /\/api\/parcel\/[^/]+/)
+    })
+
+    test('Parcels should not go above a volume threshold', async () => {
+      const credentials = {
+        email: 'bigsender@test.com',
+        password: 'password',
+      }
+      const smallerVolumeSender = await randomSender({ ...credentials, maxVolume: 100 })
+      await request(app)
+        .post('/api/parcel')
+        .set('Content-Type', 'application/json')
+        .auth(credentials.email, credentials.password)
+        .send({
+          dimensions: {
+            height: 10,
+            width: 10,
+            depth: 10,
+          },
+          address: 'Main Street 123',
+        })
+        .expect(403)
+
+      await smallerVolumeSender.delete()
+    })
+
+    test.only('Parcels should use the default max volume if the sender already exists', async () => {
+      const credentials = {
+        email: 'novolume@test.com',
+        password: 'password',
+      }
+      const noVolumeSender = await randomSender({ ...credentials })
+      await request(app)
+        .post('/api/parcel')
+        .set('Content-Type', 'application/json')
+        .auth(credentials.email, credentials.password)
+        .send({
+          dimensions: {
+            height: 1,
+            width: 1,
+            depth: 1,
+          },
+          address: 'Main Street 123',
+        })
+        .expect(201)
+
+      await noVolumeSender.delete()
+    })
+
+    test('Parcels should be added if they are within bounds', async () => {
+      return request(app)
+        .post('/api/parcel')
+        .set('Content-Type', 'application/json')
+        .auth(email, password)
+        .send({
+          dimensions: {
+            height: 10,
+            width: 10,
+            depth: 10,
+          },
+          address: 'Main Street 123',
+        })
+        .expect('Location', /\/api\/parcel\/[^/]+/)
+        .expect(201)
+    })
 
     test("Authenticated senders can read their own parcels", async () => {
       const recipient = await randomRecipient();

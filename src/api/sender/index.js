@@ -1,25 +1,27 @@
 const { AsyncRouter } = require("express-async-router");
 const { MongoError } = require("../../errors");
+const config = require('config')
 
 module.exports = ({ Sender }) => {
-  const router = AsyncRouter();
+  const router = AsyncRouter()
 
-  router.post("/", async (req, res) => {
+  router.post('/', async (req, res) => {
     const sender = new Sender({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password
-    });
+      password: req.body.password,
+      maxVolume: req.body.maxVolume ?? config.get('app.defaultMaxVolume'),
+    })
     try {
-      await sender.save();
+      await sender.save()
     } catch (err) {
-      throw MongoError.fromMongoose(err);
+      throw MongoError.fromMongoose(err)
     }
 
     return res.status(201).json({
-      sender: sender.id
-    });
-  });
+      sender: sender.id,
+    })
+  })
 
-  return router;
-};
+  return router
+}

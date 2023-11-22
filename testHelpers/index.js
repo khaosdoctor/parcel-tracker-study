@@ -16,8 +16,9 @@ module.exports = ({ Recipient, Sender, Parcel }) => {
       email: `test-email-${uuid()}@test.com`,
       name: `test name-${uuid()}`,
       password: uuid(),
-      ...attributes
-    }).save();
+      maxVolume: attributes.maxVolume ?? 100000,
+      ...attributes,
+    }).save()
 
     return sender;
   };
