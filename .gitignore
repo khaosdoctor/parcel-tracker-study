@@ -2,3 +2,5 @@ node_modules/
 test-artifacts/
 build/
 .DS_Store
+dist/
+.vscode/
