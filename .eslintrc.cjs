@@ -16,7 +16,7 @@ module.exports = {
       },
     },
     {
-      files: ['src/**/*.test.*'],
+      files: ['src/**/*.{test,spec}.*'],
       rules: {
         // Disabled due to that the test files are not compiled
         // And all the describes and it will return a promise

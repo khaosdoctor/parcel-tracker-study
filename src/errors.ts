@@ -27,7 +27,8 @@ class MongoError extends CustomError {
       case MONGO_ERRORS.DUPLICATE_KEY:
         return new MongoError('Unique constraint violated', 400)
       default:
-        return new CustomError('Unknown Server Error')
+
+        return new CustomError(error)
     }
   }
 }
